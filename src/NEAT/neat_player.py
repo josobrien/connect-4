@@ -1,6 +1,6 @@
 from neat.nn import FeedForwardNetwork
 
-from src.connect4.Player import Player
+from src.connect4.player import Player
 
 
 class NEATPlayer(Player):

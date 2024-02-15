@@ -1,4 +1,4 @@
-from src.connect4.Player import Player
+from src.connect4.player import Player
 from src.connect4.connect4_utils import is_valid_move, add_move_to_game, get_unblocked_4_in_row_possibilities, \
     get_next_player_id, check_win
 

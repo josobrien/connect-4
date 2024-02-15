@@ -3,9 +3,9 @@ import pickle
 
 import neat
 
-from src.connect4.Connect4Game import Game
-from src.NEAT.NEATPlayer import NEATPlayer
-from src.connect4.Player import Player
+from src.connect4.connect4_game import Game
+from src.NEAT.neat_player import NEATPlayer
+from src.connect4.player import Player
 from src.NEAT.train import best_net_file
 
 # play against best genome from train

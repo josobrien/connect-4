@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import numpy as np
 
-from src.engine.EnginePlayer import EnginePlayer
+from src.engine.engine_player import EnginePlayer
 
 
 class Test(TestCase):

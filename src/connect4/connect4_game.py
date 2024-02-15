@@ -2,7 +2,7 @@ import numpy as np
 # import seaborn as sns
 # from matplotlib import pyplot as plt
 
-from src.connect4.Player import Player
+from src.connect4.player import Player
 from src.connect4.connect4_utils import is_valid_move, add_move_to_game, get_next_player_id, check_win
 
 
