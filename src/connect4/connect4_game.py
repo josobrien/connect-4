@@ -5,13 +5,13 @@ from src.connect4.utils.game_utils import is_valid_move, add_move_to_game, check
 
 
 class Game:
-    def __init__(self, player1: Player, player2: Player, init_user: int = 1, init_game=np.zeros([6, 7]).astype(int),
+    def __init__(self, player1: Player, player2: Player, init_user_id: int = 1, init_game=np.zeros([6, 7]).astype(int),
                  display_messages: bool = True):
         self.player1 = player1
         self.player2 = player2
         self.player_ids = [player1.player_id, player2.player_id]
         self.current_game = init_game.copy()
-        self.current_user = init_user
+        self.current_user = player1 if init_user_id == player1.player_id else player2
         self.display_messages = display_messages
 
     def run(self):
@@ -38,29 +38,26 @@ class Game:
         return winning_user, self.current_game, invalid_move_user, turn_num
 
     def get_input(self):
-        if self.current_user == self.player1.player_id:
-            return self.player1.get_move(self.current_game)
-        else:
-            return self.player2.get_move(self.current_game)
+        return self.current_user.get_move(self.current_game)
 
     def perform_move(self):
         column = self.get_input()
         if not is_valid_move(self.current_game, column):
-            return True, self.get_next_player_id(), self.current_user
+            return True, self.get_next_player_id(), self.current_user.player_id
 
-        self.current_game, new_move_y_position = add_move_to_game(self.current_game, column, self.current_user)
+        self.current_game, new_move_y_position = add_move_to_game(self.current_game, column, self.current_user.player_id)
 
-        is_win = check_win(column, new_move_y_position, self.current_game, self.current_user)
+        is_win = check_win(column, new_move_y_position, self.current_game, self.current_user.player_id)
 
         if not is_win:
             # increment user
             self.current_user = self.get_next_player_id()
             return False, 0, 0
         else:
-            return True, self.current_user, 0
+            return True, self.current_user.player_id, 0
 
     def get_next_player_id(self):
-        return self.player_ids[(self.player_ids.index(self.current_user) + 1) % 2]
+        return self.player2 if self.current_user == self.player1 else self.player1
 
     def check_full(self):
         if 0 not in self.current_game[0]:

@@ -15,7 +15,7 @@ if __name__ == "__main__":
     #                        [0, 0, 2, 1, 0, 1, 0],
     #                        [0, 2, 1, 1, 1, 2, 0]])
     #
-    # Game(Player(1), EnginePlayer(2, depth=6), init_game=game_state, init_user=2).run()
+    # Game(Player(1), EnginePlayer(2, depth=6), init_game=game_state, init_user_id=2).run()
 
     # game_state = np.array([[0, 1, 1, 0, 0, 0, 0],
     #                        [0, 1, 2, 0, 2, 0, 0],
@@ -24,4 +24,4 @@ if __name__ == "__main__":
     #                        [1, 2, 1, 0, 2, 2, 0],
     #                        [2, 1, 2, 1, 1, 2, 0]])
     #
-    # Game(Player(1), EnginePlayer(2, depth=6), init_game=game_state, init_user=1).run()
+    # Game(Player(1), EnginePlayer(2, depth=6), init_game=game_state, init_user_id=1).run()
