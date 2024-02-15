@@ -15,7 +15,7 @@ class EnginePlayer(Player):
 
         move, value = self.evaluate_possible_positions(current_game, self.is_maximising_player, self.depth, -100000, 100000)
 
-        print(f"Computer move: {move}, eval: {value}")
+        print(f"Computer move: {move + 1}, eval: {value}")
         return move
 
     def evaluate_possible_positions(self, current_game, is_maximising_player, depth, alpha, beta):
