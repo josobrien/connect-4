@@ -29,7 +29,9 @@ class EnginePlayer(Player):
             else:
                 game_after_move, new_move_y_position = add_move_to_game(current_game, possible_move, player_turn)
 
-                if depth == 0 or check_win(possible_move, new_move_y_position, game_after_move, player_turn):
+                if check_win(possible_move, new_move_y_position, game_after_move, player_turn):
+                    value = 1000 * (1 if is_maximising_player else -1)
+                elif depth == 0:
                     value = self.evaluate_position(game_after_move)
                 else:
                     _, value = self.evaluate_possible_positions(game_after_move, not is_maximising_player, depth - 1, alpha, beta)
@@ -63,7 +65,7 @@ class EnginePlayer(Player):
             multiplier = 1 if player == 1 else -1
             for val in possible_wins:
                 if val >= 4:
-                    evaluation += 1000 * multiplier
+                    return 1000 * multiplier
                 elif val == 3:
                     evaluation += 8 * multiplier
                 else:
