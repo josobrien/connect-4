@@ -1,1 +1,2 @@
 numpy~=1.26.4
+neat-python~=0.92
