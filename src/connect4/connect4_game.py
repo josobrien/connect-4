@@ -1,9 +1,7 @@
 import numpy as np
-# import seaborn as sns
-# from matplotlib import pyplot as plt
 
 from src.connect4.player import Player
-from src.connect4.connect4_utils import is_valid_move, add_move_to_game, get_next_player_id, check_win
+from src.connect4.utils.game_utils import is_valid_move, add_move_to_game, check_win, display_game
 
 
 class Game:
@@ -23,7 +21,7 @@ class Game:
         while not game_ended:
             turn_num += 1
             if self.display_messages:
-                self.display_game()
+                self.display_current_game()
 
             game_ended, winning_user, invalid_move_user = self.perform_move()
 
@@ -31,7 +29,7 @@ class Game:
                 break
 
         if self.display_messages:
-            self.display_game()
+            self.display_current_game()
             if winning_user != 0 or invalid_move_user != 0:
                 print("Player " + str(winning_user) + " won!")
             else:
@@ -62,7 +60,7 @@ class Game:
             return True, self.current_user, 0
 
     def get_next_player_id(self):
-        return get_next_player_id(self.player_ids, self.current_user)
+        return self.player_ids[(self.player_ids.index(self.current_user) + 1) % 2]
 
     def check_full(self):
         if 0 not in self.current_game[0]:
@@ -77,8 +75,5 @@ class Game:
         print(f"Random move: {random_move}")
         return random_move
 
-    def display_game(self):
-        print(self.current_game)
-        print("  0-1-2-3-4-5-6")
-        # sns.heatmap(self.current_game, cbar=False).axes.get_yaxis().set_visible(False)  # TODO: display better
-        # plt.show()
+    def display_current_game(self):
+        display_game(self.current_game)

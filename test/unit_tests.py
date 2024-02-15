@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from src.connect4.connect4_utils import check_win
+from src.connect4.utils.game_utils import check_win
 
 
 class UnitTests(unittest.TestCase):

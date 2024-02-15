@@ -14,9 +14,9 @@ player.
 Pass two `Player` objects into the `Game` class and call `.run()`
 
 You will see a 6x7 grid of numbers representing the game of Connect 4. 
-Columns are labelled underneath (0-indexed).
+Columns are labelled underneath.
 Zeros represent an empty space and each player's ID represents their pieces in the 
-board. On your turn, pick a column 0-6, and your piece will fall to the lowest empty 
+board. On your turn, pick a column 1-7, and your piece will fall to the lowest empty 
 space in your chosen column. To win, get four of your player ID in a row vertically, 
 horizontally or diagonally before your opponent (you're probably player 1). 
 

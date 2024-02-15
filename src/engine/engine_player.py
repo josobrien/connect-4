@@ -1,5 +1,6 @@
 from src.connect4.player import Player
-from src.connect4.connect4_utils import is_valid_move, add_move_to_game, get_unblocked_4_in_row_possibilities, check_win
+from src.connect4.utils.game_utils import is_valid_move, add_move_to_game, check_win
+from src.connect4.utils.general_evaluation_utils import get_unblocked_4_in_row_possibilities
 
 
 class EnginePlayer(Player):

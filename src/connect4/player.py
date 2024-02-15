@@ -3,7 +3,8 @@ class Player:
         self.player_id = player_id
 
     def get_move(self, current_game):
-        return int(input(f"Player {self.player_id} input column: "))
+        # TODO validate input
+        return int(input(f"Player {self.player_id} input column: ")) - 1
 
     @staticmethod
     def transform_grid(game_grid):
