@@ -1,7 +1,7 @@
 import numpy as np
 
 from src.connect4.player import Player
-from src.connect4.utils.game_utils import is_valid_move, add_move_to_game, check_win, display_game
+from src.connect4.utils.game_utils import is_valid_move, add_move_to_game, check_win, display_game, check_full
 
 
 class Game:
@@ -25,7 +25,7 @@ class Game:
 
             game_ended, winning_user, invalid_move_user = self.perform_move()
 
-            if self.check_full():
+            if check_full(self.current_game):
                 break
 
         if self.display_messages:
@@ -58,11 +58,6 @@ class Game:
 
     def get_next_player_id(self):
         return self.player2 if self.current_user == self.player1 else self.player1
-
-    def check_full(self):
-        if 0 not in self.current_game[0]:
-            return True
-        return False
 
     def random_agent_move(self):
         # assumes grid is not full

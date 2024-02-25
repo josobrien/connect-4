@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.connect4.colours import Colours
+from src.connect4.utils.colours import Colours
 
 
 def is_valid_move(game_state, column) -> bool:
@@ -11,6 +11,12 @@ def is_valid_move(game_state, column) -> bool:
         # print("Invalid, column is full.")
         return False
     return True
+
+
+def check_full(game_state):
+    if 0 not in game_state[0]:
+        return True
+    return False
 
 
 def check_win(x, y, current_game, current_user):
@@ -100,16 +106,6 @@ def display_game(game_state):
     output_game_state = output_game_state.replace("2", f"{Colours.RED}2{Colours.DEFAULT}")
 
     output_game_state = Colours.DEFAULT + output_game_state
-
-    # for char in str(game_state):
-    #     if char == "1":
-    #         output_game_state += Colours.YELLOW + char + Colours.DEFAULT
-    #     elif char == "2":
-    #         output_game_state += Colours.RED + char + Colours.DEFAULT
-    #     elif char == "[" or char == "]":
-    #         continue
-    #     else:
-    #         output_game_state += char
 
     print(output_game_state)
     print("1-2-3-4-5-6-7")

@@ -1,14 +1,16 @@
 from src.connect4.player import Player
 from src.connect4.utils.game_utils import is_valid_move, add_move_to_game, check_win
-from src.connect4.utils.general_evaluation_utils import get_unblocked_4_in_row_possibilities
+from src.connect4.utils.general_evaluation_utils import get_unblocked_4_in_row_possibilities, \
+    get_unblocked_4_in_row_possibilities1
 
 
 class EnginePlayer(Player):
     # TODO player IDs are hard coded throughout. could be better
-    def __init__(self, player_id, depth=5):
+    def __init__(self, player_id, depth=5, use_new=False):
         super().__init__(player_id)
         self.depth = depth
         self.is_maximising_player = player_id == 1
+        self.use_new = use_new
 
     def get_move(self, current_game):
         # positive is good for player 1, negative is good for player 2
@@ -55,16 +57,20 @@ class EnginePlayer(Player):
 
         return best_move, best_value
 
-    @staticmethod
-    def evaluate_position(game_state):
+    def evaluate_position(self, game_state):
+        # TODO make tie not as bad as losing
         # TODO just return as soon as 4 in row found
-        possible_wins_per_player = get_unblocked_4_in_row_possibilities(game_state)
+        if self.use_new:
+            possible_wins_per_player = get_unblocked_4_in_row_possibilities1(game_state)
+        else:
+            possible_wins_per_player = get_unblocked_4_in_row_possibilities(game_state)
 
         evaluation = 0
 
         for player, possible_wins in possible_wins_per_player.items():
             multiplier = 1 if player == 1 else -1
             for val in possible_wins:
+                # TODO pass these values into the engine player so they are customisable
                 if val >= 4:
                     return 1000 * multiplier
                 elif val == 3:
