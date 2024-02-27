@@ -1,18 +1,22 @@
 import numpy as np
 
-from src.connect4.player import Player
-from src.connect4.utils.game_utils import is_valid_move, add_move_to_game, check_win, display_game, check_full
+from src.connect_x.player import Player
+from src.connect_x.utils.game_utils import display_game, check_full, Utils
 
 
 class Game:
-    def __init__(self, player1: Player, player2: Player, init_user_id: int = 1, init_game=np.zeros([6, 7]).astype(int),
-                 display_messages: bool = True):
+    def __init__(self, player1: Player, player2: Player, init_user_id: int = 1, init_game=None,
+                 display_messages: bool = True, num_in_row_to_win=4, num_rows=6, num_cols=7):
         self.player1 = player1
         self.player2 = player2
         self.player_ids = [player1.player_id, player2.player_id]
-        self.current_game = init_game.copy()
         self.current_user = player1 if init_user_id == player1.player_id else player2
         self.display_messages = display_messages
+        self.utils = Utils(num_in_row_to_win, num_rows, num_cols)
+        if init_game is None:
+            self.current_game = np.zeros([num_rows, num_cols]).astype(int)
+        else:
+            self.current_game = init_game.copy()
 
     def run(self):
         game_ended = False
@@ -42,12 +46,12 @@ class Game:
 
     def perform_move(self):
         column = self.get_input()
-        if not is_valid_move(self.current_game, column):
+        if not self.utils.is_valid_move(self.current_game, column):
             return True, self.get_next_player_id(), self.current_user.player_id
 
-        self.current_game, new_move_y_position = add_move_to_game(self.current_game, column, self.current_user.player_id)
+        self.current_game, new_move_y_position = self.utils.add_move_to_game(self.current_game, column, self.current_user.player_id)
 
-        is_win = check_win(column, new_move_y_position, self.current_game, self.current_user.player_id)
+        is_win = self.utils.check_win(column, new_move_y_position, self.current_game, self.current_user.player_id)
 
         if not is_win:
             # increment user
