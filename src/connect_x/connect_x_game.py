@@ -5,8 +5,8 @@ from src.connect_x.utils.game_utils import display_game, check_full, Utils
 
 
 class Game:
-    def __init__(self, player1: Player, player2: Player, init_user_id: int = 1, init_game=None,
-                 display_messages: bool = True, num_in_row_to_win=4, num_rows=6, num_cols=7):
+    def __init__(self, player1: Player, player2: Player, init_user_id: int = 1, init_game: np.ndarray = None,
+                 display_messages: bool = True, num_in_row_to_win: int = 4, num_rows: int = 6, num_cols: int = 7):
         self.player1 = player1
         self.player2 = player2
         self.player_ids = [player1.player_id, player2.player_id]
@@ -18,7 +18,7 @@ class Game:
         else:
             self.current_game = init_game.copy()
 
-    def run(self):
+    def run(self) -> (int, np.ndarray, int, int):
         game_ended = False
         winning_user, invalid_move_user, turn_num = 0, 0, 0
 
@@ -41,11 +41,8 @@ class Game:
 
         return winning_user, self.current_game, invalid_move_user, turn_num
 
-    def get_input(self):
-        return self.current_user.get_move(self.current_game)
-
     def perform_move(self):
-        column = self.get_input()
+        column = self.current_user.get_move(self.current_game)
         if not self.utils.is_valid_move(self.current_game, column):
             return True, self.get_next_player_id(), self.current_user.player_id
 
